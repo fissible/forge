@@ -27,7 +27,7 @@ class GenerateCommand extends Command
     protected function configure(): void
     {
         $this
-            ->addOption('version', null, InputOption::VALUE_REQUIRED, 'URI version to generate for', 'v1')
+            ->addOption('api-version', null, InputOption::VALUE_REQUIRED, 'URI version to generate for', 'v1')
             ->addOption('title', null, InputOption::VALUE_REQUIRED, 'API title for the spec info block', 'API')
             ->addOption('output', 'o', InputOption::VALUE_REQUIRED, 'Output path (default: {base}/resources/openapi/{version}.yaml)')
             ->addOption('force', 'f', InputOption::VALUE_NONE, 'Overwrite existing spec file');
@@ -35,7 +35,7 @@ class GenerateCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $version = $input->getOption('version');
+        $version = $input->getOption('api-version');
         $title   = $input->getOption('title');
         $force   = (bool) $input->getOption('force');
 
@@ -51,7 +51,7 @@ class GenerateCommand extends Command
         $number = ltrim($version, 'v');
         $routes = array_values(array_filter(
             $this->inspector->getRoutes(),
-            fn($r) => preg_match('/^\/v' . $number . '(?:\/|$)/', $r->path),
+            fn($r) => preg_match('/\/v' . $number . '(?:\/|$)/', $r->path),
         ));
 
         if (empty($routes)) {
@@ -60,7 +60,7 @@ class GenerateCommand extends Command
         }
 
         $spec = $this->generator->generate($routes, $version, $title);
-        $yaml = Yaml::dump($spec, indent: 2, flags: Yaml::DUMP_EMPTY_ARRAY_AS_SEQUENCE | Yaml::DUMP_MULTI_LINE_LITERAL_BLOCK);
+        $yaml = Yaml::dump($spec, inline: 10, indent: 2, flags: Yaml::DUMP_EMPTY_ARRAY_AS_SEQUENCE | Yaml::DUMP_MULTI_LINE_LITERAL_BLOCK);
 
         @mkdir(dirname($outputPath), recursive: true);
         file_put_contents($outputPath, $yaml);

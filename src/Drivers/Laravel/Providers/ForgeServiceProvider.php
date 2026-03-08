@@ -10,6 +10,7 @@ use Fissible\Forge\Drivers\Laravel\Inspectors\LaravelFormRequestInspector;
 use Fissible\Forge\FormRequestInspectorInterface;
 use Fissible\Forge\SchemaInferrer;
 use Fissible\Forge\SpecGenerator;
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
 
 class ForgeServiceProvider extends ServiceProvider
@@ -26,6 +27,14 @@ class ForgeServiceProvider extends ServiceProvider
             return new SpecGenerator(
                 schemaInferrer:        $this->app->make(SchemaInferrer::class),
                 formRequestInspector:  $this->app->make(FormRequestInspectorInterface::class),
+            );
+        });
+
+        $this->app->singleton(GenerateCommand::class, function (Application $app) {
+            return new GenerateCommand(
+                inspector: $app->make(RouteInspectorInterface::class),
+                generator: $app->make(SpecGenerator::class),
+                basePath:  $app->basePath(),
             );
         });
     }

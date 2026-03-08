@@ -32,13 +32,11 @@ class LaravelFormRequestInspector implements FormRequestInspectorInterface
 
     public function getFormRequestClass(RouteDefinition $route): ?string
     {
-        // Route action may be stored in rawPath context; we need the controller action.
-        // This is called from SpecGenerator which passes the RouteDefinition — but
-        // the controller info comes from Laravel's route registry, not RouteDefinition.
-        // In practice, this inspector is called with additional context from the
-        // GenerateCommand which resolves the action string separately.
-        // See LaravelGenerateCommand for the full wiring.
-        return null;
+        if ($route->action === null) {
+            return null;
+        }
+
+        return $this->getFormRequestClassForAction($route->action);
     }
 
     /**
