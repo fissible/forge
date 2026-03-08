@@ -2,7 +2,7 @@
 
 OpenAPI spec generation for PHP. Scaffolds a valid OpenAPI 3.0 spec from your application's routes, inferring request body schemas from Laravel FormRequest validation rules.
 
-Part of the [Fissible](https://github.com/fissible) suite: accord → drift → **forge**.
+Part of the [Fissible](https://github.com/fissible) suite. New to Fissible? [Start with fissible/accord](https://github.com/fissible/accord) — it explains how the three packages work together.
 
 ---
 
