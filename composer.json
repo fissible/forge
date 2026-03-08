@@ -1,0 +1,52 @@
+{
+    "name": "fissible/forge",
+    "description": "OpenAPI spec generation for PHP — scaffolds specs from routes and infers schemas from validation rules",
+    "type": "library",
+    "license": "MIT",
+    "keywords": ["openapi", "spec", "generation", "scaffolding", "laravel", "api"],
+    "repositories": [
+        {
+            "type": "path",
+            "url": "../accord",
+            "options": {"symlink": true}
+        },
+        {
+            "type": "path",
+            "url": "../drift",
+            "options": {"symlink": true}
+        }
+    ],
+    "require": {
+        "php": "^8.2",
+        "fissible/accord": "*@dev",
+        "fissible/drift": "*@dev",
+        "symfony/console": "^6.0|^7.0",
+        "symfony/yaml": "^6.0|^7.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^11.0"
+    },
+    "suggest": {
+        "illuminate/routing": "^10.0|^11.0|^12.0 — required for the Laravel driver"
+    },
+    "autoload": {
+        "psr-4": {
+            "Fissible\\Forge\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Fissible\\Forge\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Fissible\\Forge\\Drivers\\Laravel\\Providers\\ForgeServiceProvider"
+            ]
+        }
+    },
+    "config": {
+        "sort-packages": true
+    }
+}
