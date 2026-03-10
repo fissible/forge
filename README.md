@@ -164,7 +164,7 @@ The bundled `LaravelFormRequestInspector` reflects controller action signatures 
 use Fissible\Forge\Drivers\Laravel\Inspectors\LaravelFormRequestInspector;
 ```
 
-It handles any controller action of the form `ControllerClass@method`. Closure-based routes are skipped. FormRequests with constructor dependencies that can't be resolved from the container will fall back to an empty object schema.
+It handles any controller action of the form `ControllerClass@method`. Closure-based routes are skipped. The inspector uses `ReflectionClass::newInstanceWithoutConstructor()` to call `rules()` without triggering Laravel's request validation lifecycle — this means FormRequests with `required` fields work correctly during spec generation, even outside of an HTTP request context. If `rules()` itself cannot run without a real request (e.g. because it reads `$this->route()`), it falls back to an empty object schema.
 
 ### Custom inspectors
 
