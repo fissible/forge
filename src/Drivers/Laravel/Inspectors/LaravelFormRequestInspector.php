@@ -8,6 +8,7 @@ use Fissible\Drift\RouteDefinition;
 use Fissible\Forge\FormRequestInspectorInterface;
 use Illuminate\Container\Container;
 use Illuminate\Foundation\Http\FormRequest;
+use ReflectionClass;
 use ReflectionException;
 use ReflectionMethod;
 use ReflectionNamedType;
@@ -17,12 +18,11 @@ use ReflectionNamedType;
  *
  * For a route pointing to UserController@store, this inspector reflects the
  * store() method parameters and finds any that extend FormRequest. It then
- * instantiates the FormRequest via the container and calls rules().
+ * calls rules() on the class to extract the validation rules array.
  *
  * Limitations:
  *   - Closure-based routes cannot be inspected
- *   - FormRequests with complex constructor dependencies may fail to instantiate
- *   - rules() that depend on request data will return empty/partial results
+ *   - rules() that depend on request data (e.g. unique exclusions) will return empty/partial results
  */
 class LaravelFormRequestInspector implements FormRequestInspectorInterface
 {
@@ -75,9 +75,14 @@ class LaravelFormRequestInspector implements FormRequestInspectorInterface
 
     public function getRules(string $formRequestClass): array
     {
+        // Use newInstanceWithoutConstructor() to bypass the container resolution
+        // lifecycle, which triggers FormRequest::validateResolved() and throws a
+        // ValidationException for requests with required fields when there is no
+        // real HTTP request in scope (e.g. during spec generation from the CLI or
+        // a background controller action).
         try {
             /** @var FormRequest $instance */
-            $instance = $this->container->make($formRequestClass);
+            $instance = (new ReflectionClass($formRequestClass))->newInstanceWithoutConstructor();
 
             return $instance->rules();
         } catch (\Throwable) {
