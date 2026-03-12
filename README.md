@@ -2,12 +2,12 @@
 
 OpenAPI spec generation for PHP. Scaffolds a valid OpenAPI 3.0 spec from your application's routes, inferring request body schemas from Laravel FormRequest validation rules.
 
-Part of the [Fissible](https://github.com/fissible) suite. **Depends on:** nothing from the suite (standalone spec generator).
+Part of the [Fissible](https://github.com/fissible) suite. **Depends on:** fissible/accord and fissible/drift (uses route inspection and spec source interfaces).
 
 ```
-  [forge]  ──────────────────────────────►  [accord]  ◄── [watch]
-  ← you are here                           validate at      bolt-on cockpit
-  generate / update spec                   runtime │        (paid, requires all)
+  [forge]  ──────────────────────────────►  [accord]  ◄── [watch] ◄── [fault]
+  ← you are here                           validate at      cockpit UI   exception
+  generate / update spec                   runtime │        (bolt-on)    tracking
       ▲                                            ▼
       └──────────────────────────────────  [drift]
                                            detect drift, bump version
