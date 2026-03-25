@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8d90a6543ed9ef7dc666f432000f7ac0",
+    "content-hash": "9aa4c0142fb678cf19a2c4f65a787cdc",
     "packages": [
         {
             "name": "cebe/php-openapi",
@@ -77,11 +77,17 @@
         },
         {
             "name": "fissible/accord",
-            "version": "dev-main",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/fissible/accord.git",
+                "reference": "d8af96b996d061803d946ab74e2e7731320d5af2"
+            },
             "dist": {
-                "type": "path",
-                "url": "../accord",
-                "reference": "2cb73cbf32e2ed20db89d291bc28141f5447ffc4"
+                "type": "zip",
+                "url": "https://api.github.com/repos/fissible/accord/zipball/d8af96b996d061803d946ab74e2e7731320d5af2",
+                "reference": "d8af96b996d061803d946ab74e2e7731320d5af2",
+                "shasum": ""
             },
             "require": {
                 "cebe/php-openapi": "^1.7",
@@ -92,7 +98,7 @@
                 "psr/http-server-middleware": "^1.0",
                 "psr/log": "^2.0|^3.0",
                 "psr/simple-cache": "^2.0|^3.0",
-                "symfony/psr-http-message-bridge": "^2.0",
+                "symfony/psr-http-message-bridge": "^2.0|^7.0",
                 "symfony/yaml": "^6.0|^7.0"
             },
             "require-dev": {
@@ -114,40 +120,51 @@
                     "Fissible\\Accord\\": "src/"
                 }
             },
-            "autoload-dev": {
-                "psr-4": {
-                    "Fissible\\Accord\\Tests\\": "tests/"
-                }
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
+            "authors": [
+                {
+                    "name": "Allen McCabe",
+                    "role": "Developer"
+                }
+            ],
             "description": "OpenAPI contract validation for PHP — PSR-7/15 core with Laravel, Slim, and Mezzio drivers",
+            "homepage": "https://github.com/fissible/accord",
             "keywords": [
                 "contract",
                 "laravel",
                 "mezzio",
+                "middleware",
                 "openapi",
                 "psr-15",
                 "psr-7",
                 "slim",
                 "validation"
             ],
-            "transport-options": {
-                "symlink": true,
-                "relative": true
-            }
+            "support": {
+                "issues": "https://github.com/fissible/accord/issues",
+                "source": "https://github.com/fissible/accord/tree/v1.0.0"
+            },
+            "time": "2026-03-24T08:06:23+00:00"
         },
         {
             "name": "fissible/drift",
-            "version": "dev-main",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/fissible/drift.git",
+                "reference": "3cbb2ceafd5f737398cbafbf04939f3fc215bd3d"
+            },
             "dist": {
-                "type": "path",
-                "url": "../drift",
-                "reference": "702a42b91ab03bd100ae5a0dc5d1db70a58db9ba"
+                "type": "zip",
+                "url": "https://api.github.com/repos/fissible/drift/zipball/3cbb2ceafd5f737398cbafbf04939f3fc215bd3d",
+                "reference": "3cbb2ceafd5f737398cbafbf04939f3fc215bd3d",
+                "shasum": ""
             },
             "require": {
-                "fissible/accord": "*@dev",
+                "fissible/accord": "^1.0",
                 "php": "^8.2",
                 "symfony/console": "^6.0|^7.0",
                 "symfony/yaml": "^6.0|^7.0"
@@ -172,27 +189,30 @@
                     "Fissible\\Drift\\": "src/"
                 }
             },
-            "autoload-dev": {
-                "psr-4": {
-                    "Fissible\\Drift\\Tests\\": "tests/"
-                }
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
+            "authors": [
+                {
+                    "name": "Allen McCabe",
+                    "role": "Developer"
+                }
+            ],
             "description": "API drift detection for PHP — compares live routes against OpenAPI specs and recommends version changes",
+            "homepage": "https://github.com/fissible/drift",
             "keywords": [
                 "api",
                 "drift",
                 "laravel",
                 "openapi",
-                "validation",
-                "versioning"
+                "semver"
             ],
-            "transport-options": {
-                "symlink": true,
-                "relative": true
-            }
+            "support": {
+                "issues": "https://github.com/fissible/drift/issues",
+                "source": "https://github.com/fissible/drift/tree/v1.0.0"
+            },
+            "time": "2026-03-25T00:33:22+00:00"
         },
         {
             "name": "justinrainbow/json-schema",
@@ -3585,10 +3605,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "fissible/accord": 20,
-        "fissible/drift": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
